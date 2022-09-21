@@ -60,23 +60,31 @@ const moviesController = {
         genre_id,
         release_date,  
     }).then(movie =>{
-        console.log(movie);
-        return res.redirect("movies")
+        console.log(movie)
+        return res.redirect("/movies")
     }).catch(error => console.log(error))
     
   },
   edit: function (req, res) {
-    let Movie = Movies.findByPk(req.params.id);
+    let Movie = Movies.findByPk(req.params.id,{
+        include : [
+          {
+            association : "genre"
+          }
+        ]
+    });
     let allGenres = Genres.findAll({
-        oeder :["name"]
+        order :["name"]
     });
     Promise.all([Movie,allGenres])
     .then(([Movie,allGenres])=>{
       /*  console.log(Movie);
        console.log(allGenres); */
+       /* return res.send(Movie) */
        return res.render("moviesEdit",{
         Movie,
-        allGenres
+        allGenres,
+        moment : moment
        })
     }).catch(error => console.log(error))
   },
@@ -99,8 +107,12 @@ const moviesController = {
     ).then( () => res.redirect("/movies/detail/" + req.params.id))
     .catch(error => console.log(error))
   },
-  delete: function (req, res) {},
-  destroy: function (req, res) {},
+  delete: function (req, res) {
+
+  },
+  destroy: function (req, res) {
+
+  },
 };
 
 module.exports = moviesController;
