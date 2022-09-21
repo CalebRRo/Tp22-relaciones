@@ -68,9 +68,9 @@ const moviesController = {
   edit: function (req, res) {
     let Movie = Movies.findByPk(req.params.id,{
         include : [
-          {
-            association : "genre"
-          }
+          
+             "genre"
+          
         ]
     });
     let allGenres = Genres.findAll({
@@ -80,11 +80,11 @@ const moviesController = {
     .then(([Movie,allGenres])=>{
       /*  console.log(Movie);
        console.log(allGenres); */
-       /* return res.send(Movie) */
+        /* return res.send(Movie)  */
        return res.render("moviesEdit",{
         Movie,
         allGenres,
-        moment : moment
+        moment 
        })
     }).catch(error => console.log(error))
   },
@@ -108,10 +108,15 @@ const moviesController = {
     .catch(error => console.log(error))
   },
   delete: function (req, res) {
-
+      Movies.findByPk(req.params.id)
+      .then(movie =>{
+        return res.render("moviesDelete",{movie})
+      })
   },
   destroy: function (req, res) {
-
+    Movies.destroy({
+      where : {id : req.params.id}
+    }).then(() => res.redirect("/movies"))
   },
 };
 

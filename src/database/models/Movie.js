@@ -32,7 +32,8 @@ module.exports = (sequelize, dataTypes) => {
         timestamps: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at',
-        deletedAt: false
+        deletedAt: 'deleted_at',
+        paranoid : true
     }
     const Movie = sequelize.define(alias,cols,config);
 
@@ -40,7 +41,8 @@ module.exports = (sequelize, dataTypes) => {
     Movie.associate = (models) => {
         Movie.belongsTo(models.Genre, {
             as : "genre",
-            foreignKey : "genre_id"
+            foreignKey : "genre_id",
+            onDelete : "CASCADE"
         });
         Movie.belongsToMany(models.Actor,{
             as : "actors",
