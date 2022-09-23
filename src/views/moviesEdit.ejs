@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title class="titulo">Editar Película</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+<%- include("./partials/head") %> 
+  <body>
+    <%- include("./partials/header") %> 
+ 
+    <link rel='stylesheet' href='/css/style.css' />
 
 <body>
     <figure>
         <img src="/img/logo-DH.png" alt="Logo Digital House">
+        <title class="titulo">Editar Película</title>
       </figure>
     <h1 class="titulo">Película Editada:  <%= Movie.title %></h1>
     <section class="formulario">
@@ -42,7 +39,7 @@
             
             <br>
             <p> <button class="botonAgregar" type="submit">Actualizar</button>
-        
+            
             <a  class="botonVolver" href="/movies">Listado de Películas</a></p>
         </form>
     </section>
